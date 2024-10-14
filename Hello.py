@@ -62,7 +62,7 @@ st.subheader("Feedback & Use", divider="gray")
 feedback_use = ''' This work is distributed freely and openly. To cite:  
     > *(not yet published)*  
 
-    In case of errors or bugs, please use the ["Issues" section](https://github.com/MatthieuGG/DualTaskProgress/issues) in the dedicated GitHub repository.  
+    In case of errors or bugs, please use the ["Issues" section](https://github.com/MatthieuGG/DualTaskCalculator/issues) in the dedicated GitHub repository.  
     For any other feedback, please send me an email to: [matthieu.gallou.guyot@gmail.com](mailto:matthieu.gallou.guyot@gmail.com).
         '''
 st.markdown(feedback_use)
