@@ -7,7 +7,7 @@ path_img_dtp = os.path.join(current_directory, 'images', 'DTP.png')
 
 st.set_page_config(
     page_title="Home",
-    page_icon="👋",
+    page_icon="🧠💪",
 )
 
 st.write("# Welcome to The Dual-Task Calculator!")
@@ -19,7 +19,7 @@ st.markdown(
 )
 
 # DTE
-st.subheader("Dual-Task Effect")
+st.subheader("Dual-Task :blue[Effect]")
 st.markdown(
     """
     The dual-task effect (DTE) is defined as the impact on the performance of realising a task in dual-task condition compared to single-task condition. It is calculated using the formula:
@@ -39,7 +39,7 @@ st.image(path_img_dte, caption="Plummer et al. (2014). Stroke Research and Treat
 
 
 # DTP
-st.subheader("Dual-Task Progress")
+st.subheader("Dual-Task :orange[Progress]")
 st.markdown(
     """
     The dual-task progress (DTP) is defined as the evolution over time of the dual-task effect, for instance between T1 and T2. It is calculated using the formula:

@@ -6,7 +6,7 @@ from io import BytesIO
 
 st.set_page_config(
     page_title="Dual-Task Progress",
-    page_icon="🗿",
+    page_icon="🧠💪📈",
 )
 
 # Dual Task effect
@@ -111,7 +111,7 @@ def determine_progress_category(row):
     return 'Unknown'
 
 
-st.title("Dual-Task Progress")
+st.title("Dual-Task :orange[Progress]")
 
 # Test orientation
 st.subheader("What are your tests orientation?")
@@ -168,6 +168,8 @@ else:
     '''
 
     st.markdown(data_formating)
+    st.markdown('''You can find data structure [here](https://github.com/MatthieuGG/DualTaskCalculator/blob/main/samples/testDTP.csv)
+                ''')
 
 # Calculation
 if st.button("Calculate Dual-Task Progress"):

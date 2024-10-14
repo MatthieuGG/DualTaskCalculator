@@ -6,7 +6,7 @@ from io import BytesIO
 
 st.set_page_config(
     page_title="Dual-Task Effect",
-    page_icon="💃",
+    page_icon="🧠💪",
 )
 
 # DTE
@@ -48,7 +48,7 @@ def determine_effect_category(row):
     return 'Unknown'
 
 
-st.title("Dual-Task Effect")
+st.title("Dual-Task :blue[Effect]")
 
 # Test orientation
 st.subheader("What are your tests orientation?")
@@ -97,8 +97,9 @@ else:
     | Participant 1|                                     |                                   |                                 |                               |
     | ...          |                                     |                                   |                                 |                               |
     '''
-
     st.markdown(data_formating)
+    st.markdown('''You can find data structure [here](https://github.com/MatthieuGG/DualTaskCalculator/blob/main/samples/testDTE.csv)
+                ''')
 
 # Calculation
 if st.button("Calculate Dual-Task Effect"):
