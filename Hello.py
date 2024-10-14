@@ -6,7 +6,7 @@ path_img_dte = os.path.join(current_directory, 'images', 'DTE.jpg')
 path_img_dtp = os.path.join(current_directory, 'images', 'DTP.png')
 
 st.set_page_config(
-    page_title="Home",
+    page_title="Dual-Task Calculator",
     page_icon="🧠",
 )
 

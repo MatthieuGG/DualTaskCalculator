@@ -133,6 +133,12 @@ if st.button("Calculate Dual-Task Effect"):
         for i, row in df.iterrows():
             st.write(f"Participant {row['ID']}: Dual Task Effect (DTE) = {row['Dual Task Effect']}")
 
+        # Explanations
+        st.divider()  
+        st.markdown('''
+                    The results are displayed as follow: *Participant {participant_ID}: Dual Task Effect (DTE) = {dual_tas_effect_category}*
+                    ''')
+
         # Download CSV
         @st.cache_data
         def convert_df(df):

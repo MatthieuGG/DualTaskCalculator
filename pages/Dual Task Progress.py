@@ -226,6 +226,12 @@ if st.button("Calculate Dual-Task Progress"):
         for i, row in df.iterrows():
             st.write(f"Participant {row['ID']}: went from {row['T1 - Dual Task Effect']} at T1, to {row['T2 - Dual Task Effect']} at T2, with a {row['Dual Task Progress']}")
 
+        # Explanations
+        st.divider()  
+        st.markdown('''
+                    The results are displayed as follow: *Participant {participant_ID}: went from {dual_tas_effect_category_T1} at T1, to {dual_tas_effect_category_T2} at T2, with a {dual_tas_progress_category}*
+                    ''')
+
         # Download CSV
         @st.cache_data
         def convert_df(df):
