@@ -6,7 +6,7 @@ from io import BytesIO
 
 st.set_page_config(
     page_title="Dual-Task Effect",
-    page_icon="🧠💪",
+    page_icon="💪",
 )
 
 # DTE
@@ -98,7 +98,7 @@ else:
     | ...          |                                     |                                   |                                 |                               |
     '''
     st.markdown(data_formating)
-    st.markdown('''You can find data structure [here](https://github.com/MatthieuGG/DualTaskCalculator/blob/main/samples/testDTE.csv)
+    st.markdown('''You can find data structure example [here](https://github.com/MatthieuGG/DualTaskCalculator/blob/main/samples/testDTE.csv).
                 ''')
 
 # Calculation
