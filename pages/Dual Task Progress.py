@@ -229,7 +229,7 @@ if st.button("Calculate Dual-Task Progress"):
         # Explanations
         st.divider()  
         st.markdown('''
-                    The results are displayed as follow: *Participant {participant_ID}: went from {dual_tas_effect_category_T1} at T1, to {dual_tas_effect_category_T2} at T2, with a {dual_tas_progress_category}*
+                    The results are displayed as follow: *Participant {participant_ID}: went from {DTE_category_T1} at T1, to {DTE_category_T2} at T2, with a {DTP_category}*
                     ''')
 
         # Download CSV
