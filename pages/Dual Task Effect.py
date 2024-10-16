@@ -52,13 +52,14 @@ st.title("Dual-Task :blue[Effect]")
 
 # Test orientation
 st.subheader("What are your tests orientation?")
-orientation_score = '''**Positive**: higher score means higher performance.  
-**Negative**: lower score means higher performance.
+orientation_score = '''**Positive**: higher score means higher performance (ex: distance run in 10 s).  
+**Negative**: lower score means higher performance (ex: time to run over 100 m).
 '''
 st.markdown(orientation_score)
 
 cognitive_orientation = st.selectbox("Cognitive test orientation", ["Positive", "Negative"])
 motor_orientation = st.selectbox("Motor test orientation", ["Positive", "Negative"])
+
 cog_better_higher = cognitive_orientation == "Positive"
 motor_better_higher = motor_orientation == "Positive"
 
@@ -90,7 +91,7 @@ else:
         st.dataframe(df)
     
     data_formating = '''
-    Your data should be organised as:  
+    Please respect the data structure bellow. You can find data structure example [here](https://github.com/MatthieuGG/DualTaskCalculator/blob/main/samples/testDTE.csv).  
 
     | ID           | Cognitive performance - Single Task | Cognitive performance - Dual Task | Motor performance - Single Task | Motor performance - Dual Task |
     |--------------|-------------------------------------|-----------------------------------|---------------------------------|-------------------------------|
@@ -98,8 +99,6 @@ else:
     | ...          |                                     |                                   |                                 |                               |
     '''
     st.markdown(data_formating)
-    st.markdown('''You can find data structure example [here](https://github.com/MatthieuGG/DualTaskCalculator/blob/main/samples/testDTE.csv).
-                ''')
 
 # Calculation
 if st.button("Calculate Dual-Task Effect"):
@@ -134,10 +133,7 @@ if st.button("Calculate Dual-Task Effect"):
             st.write(f"Participant {row['ID']}: Dual Task Effect = {row['Dual Task Effect']}")
 
         # Explanations
-        st.divider()  
-        st.markdown('''
-                    The results are displayed as follow: *Participant {participant_ID}: Dual Task Effect = {DTE_category}*
-                    ''')
+        st.caption("The results are displayed as follow: 'Participant [ID]: Dual Task Effect = [category]'")
 
         # Download CSV
         @st.cache_data
