@@ -84,9 +84,9 @@ st.subheader("Feedback & Use", divider="gray")
 feedback_use = ''' 
     This work is distributed freely and openly. Enjoy!  
 
-    Errors or bugs 👉 [GitHub "Issues" section](https://github.com/MatthieuGG/DualTaskCalculator/issues).  
-    Missing functions or new ideas 👉 [GitHub "Discussion" section](https://github.com/MatthieuGG/DualTaskCalculator/discussions).  
-    Any other feedback 📬 [matthieu.gallou.guyot@gmail.com](mailto:matthieu.gallou.guyot@gmail.com).  
+    - Errors or bugs 👉 [GitHub "Issues" section](https://github.com/MatthieuGG/DualTaskCalculator/issues)  
+    - Missing functions or new ideas 👉 [GitHub "Discussion" section](https://github.com/MatthieuGG/DualTaskCalculator/discussions)  
+    - Any other feedback 📬 [matthieu.gallou.guyot@gmail.com](mailto:matthieu.gallou.guyot@gmail.com)  
 
     To give credits, please cite:  
     > *(not yet published)*  
