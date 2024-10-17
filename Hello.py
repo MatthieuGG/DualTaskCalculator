@@ -81,10 +81,14 @@ st.image(path_results_dtp, caption=None, width=50, use_column_width=True)
 
 # Footer
 st.subheader("Feedback & Use", divider="gray")
-feedback_use = ''' This work is distributed freely and openly. Please give credits citing:  
+feedback_use = ''' 
+    This work is distributed freely and openly. 
+    In case of errors or bugs, please use the GitHub ["Issues" section](https://github.com/MatthieuGG/DualTaskCalculator/issues).
+    In case of missing functions or ideas to add, please use the GitHub ["Discussion" section](https://github.com/MatthieuGG/DualTaskCalculator/discussions). 
+    For any other feedback, please send me an email to: [matthieu.gallou.guyot@gmail.com](mailto:matthieu.gallou.guyot@gmail.com).  
+
+    Please give credits citing:  
     > *(not yet published)*  
 
-    In case of errors or bugs, please use the ["Issues" section](https://github.com/MatthieuGG/DualTaskCalculator/issues) in the dedicated GitHub repository.  
-    For any other feedback, please send me an email to: [matthieu.gallou.guyot@gmail.com](mailto:matthieu.gallou.guyot@gmail.com).
-        '''
+    '''
 st.markdown(feedback_use)
