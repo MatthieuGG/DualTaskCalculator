@@ -9,6 +9,8 @@ path_results_dte = os.path.join(current_directory, 'samples', 'plot_DTE.png')
 path_img_dtp = os.path.join(current_directory, 'images', 'DTP.png')
 path_results_dtp = os.path.join(current_directory, 'samples', 'plot_DTP.png')
 
+path_img_dtr = os.path.join(current_directory, 'images', 'DTR.png')
+
 st.set_page_config(
     page_title="Dual-Task Calculator",
     page_icon="🧠",
@@ -50,8 +52,6 @@ st.markdown(
 )
 st.image(path_results_dte, caption=None, width=50, use_column_width=True)
 
-
-
 # DTP
 st.divider()
 st.subheader("Dual-Task :orange[Progress]")
@@ -78,6 +78,26 @@ st.markdown(
     """
 )
 st.image(path_results_dtp, caption=None, width=50, use_column_width=True)
+
+# DTR
+st.divider()
+st.subheader("Dual-Task :green[Repro]")
+st.markdown(
+    """
+    The dual-task repro (DTR) is an automated process that calculates different scores to qualify the reliability of the measures (cognitive and motor, in single and dual task conditions) between two evaluators (*inter*) or two evaluations (*intra*):  
+    - Intraclass Correlation Coefficient (ICC)
+    - Cronbach's alpha
+    - Standard Error of Measurement (SEM)
+    - Coefficient of Variation (CV)
+    """
+)
+st.markdown(
+    """
+    You can access the **Dual Task :green[Repro]** calculator using the side bar, or clicking [this link](https://dualtaskcalculator.streamlit.app/~/+/Dual_Task_Repro). 
+    Providing data manually or by upload, you will obtain downloadable: 1) dataframe and explanation of your results, 2) confusion matrix and Bland-Altman plots of this kind:  
+    """
+)
+st.image(path_img_dtr, use_column_width=True)
 
 # Footer
 st.subheader("Feedback & Use", divider="gray")

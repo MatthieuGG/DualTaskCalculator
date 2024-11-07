@@ -57,11 +57,15 @@ orientation_score = '''**Positive**: higher score means higher performance (ex: 
 '''
 st.markdown(orientation_score)
 
-cognitive_orientation = st.selectbox("Cognitive test orientation", ["Positive", "Negative"])
-motor_orientation = st.selectbox("Motor test orientation", ["Positive", "Negative"])
+col1, col2 = st.columns(2)
+with col1:
+    cognitive_orientation = st.radio("Cognitive test orientation", ["Positive", "Negative"])
+
+with col2:
+    motor_orientation = st.radio("Motor test orientation", ["Positive", "Negative"])
 
 cog_better_higher = cognitive_orientation == "Positive"
-motor_better_higher = motor_orientation == "Positive"
+mot_better_higher = motor_orientation == "Positive"
 
 # Data
 st.subheader("What is your data source?")

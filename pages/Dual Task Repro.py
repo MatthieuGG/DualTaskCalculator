@@ -2,11 +2,15 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from io import BytesIO
+import io
+import pingouin as pg
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
+import numpy as np
 
 st.set_page_config(
-    page_title="Dual-Task Progress",
-    page_icon="📈",
+    page_title="Dual-Task Repro",
+    page_icon="📊",
 )
 
 # Dual Task effect
@@ -110,8 +114,126 @@ def determine_progress_category(row):
         return 'DTP 0/0 : no progress'
     return 'Unknown'
 
+# REPRO
+def calculate_agreement_rate(df):
+    df['Agreement'] = df['T1 - Dual Task Effect'] == df['T2 - Dual Task Effect']
+    agreement_rate = df['Agreement'].mean() * 100
+    print(f"Agreement rate between T1 and T2 - Dual Task Effect: {agreement_rate:.2f}%")
+    return agreement_rate
 
-st.title("Dual-Task :orange[Progress]")
+
+def plot_confusion_matrix(df):
+    labels = df['T1 - Dual Task Effect'].unique()
+    cm = confusion_matrix(df['T1 - Dual Task Effect'], df['T2 - Dual Task Effect'], labels=labels)
+
+    # percentages
+    cm_percentage = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis] * 100
+
+    cm_df = pd.DataFrame(cm, index=labels, columns=labels)
+    cm_percentage_df = pd.DataFrame(cm_percentage, index=labels, columns=labels)
+
+    annotations = [
+        f"{v} ({p:.1f}%)" for v, p in zip(cm_df.values.flatten(), cm_percentage_df.values.flatten())
+    ]
+    annotations = np.array(annotations).reshape(cm_df.shape)
+
+    # matrix
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sns.heatmap(cm_percentage_df, annot=annotations, fmt='', cmap='Blues', cbar=False, annot_kws={"size": 12}, ax=ax)
+    
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right', fontsize=10)
+    ax.set_yticklabels(ax.get_yticklabels(), rotation=45, ha='right', fontsize=10)
+    
+    ax.set_xlabel("T2 - Dual Task Effect")
+    ax.set_ylabel("T1 - Dual Task Effect")
+    ax.set_title("Confusion matrix between T1 and T2 - Dual Task Effect")
+    ax.tick_params(axis='both', which='both', labelsize=10)
+
+    return fig
+
+def transform_to_long_icc(df):
+    value_vars = [
+        "T1 - Cognitive performance - Single Task", 
+        "T1 - Cognitive performance - Dual Task",
+        "T1 - Motor performance - Single Task", 
+        "T1 - Motor performance - Dual Task",
+        "T2 - Cognitive performance - Single Task", 
+        "T2 - Cognitive performance - Dual Task",
+        "T2 - Motor performance - Single Task", 
+        "T2 - Motor performance - Dual Task",
+        "T1 - Cognitive Dual Task Effect", 
+        "T2 - Cognitive Dual Task Effect",
+        "T1 - Motor Dual Task Effect", 
+        "T2 - Motor Dual Task Effect"
+    ]
+
+    df_long = pd.melt(
+        df,
+        id_vars=["ID"],
+        value_vars=value_vars,
+        var_name="Mesure",
+        value_name="Score"
+    )
+    
+    df_long['Eval 1 or 2'] = df_long['Mesure'].str.extract(r'(T1|T2)')
+    df_long['Mesure'] = df_long['Mesure'].str.replace(r'(T1|T2) - ', '', regex=True)
+
+    return df_long
+
+def calculate_cronbach_alpha_icc_with_metrics(df, time1='T1', time2='T2'):
+    results = []
+    
+    for mesure in df['Mesure'].unique():
+        df_mesure = df[df['Mesure'] == mesure]
+        df_pivot = df_mesure.pivot(index='ID', columns='Eval 1 or 2', values='Score')
+        
+        if not df_pivot.empty and df_pivot.shape[1] > 1:
+            # Cronbach alpha & ICC
+            alpha, ci = pg.cronbach_alpha(data=df_pivot, nan_policy='pairwise')
+            icc = pg.intraclass_corr(data=df_mesure, targets='ID', raters='Eval 1 or 2', ratings='Score').iloc[0]['ICC']
+            
+            # SEM & CV
+            score_std = df_mesure['Score'].std() 
+            score_mean = df_mesure['Score'].mean() 
+            sem = score_std * (1 - alpha) ** 0.5 
+            cv = (score_std / score_mean) * 100 if score_mean != 0 else None 
+            
+            results.append({
+                'Mesure': mesure,
+                "Cronbach's alpha": round(alpha, 2),
+                'ICC 95% CI': f"{ci[0]:.2f} - {ci[1]:.2f}",
+                'SEM': round(sem, 2),
+                'CV (%)': round(cv, 2) if cv is not None else 'N/A'
+            })
+    
+    results_df = pd.DataFrame(results)
+
+    return results_df
+
+def create_bland_altman_plots(df):
+    mesures = df['Mesure'].unique()
+    n_mesures = len(mesures)
+
+    fig, axes = plt.subplots(nrows=n_mesures, ncols=1, figsize=(8, n_mesures * 4))
+
+    for i, mesure in enumerate(mesures):
+        df_mesure = df[df['Mesure'] == mesure].pivot(index='ID', columns='Eval 1 or 2', values='Score')
+
+        if 'T1' in df_mesure.columns and 'T2' in df_mesure.columns:
+            df_mesure = df_mesure.dropna(subset=['T1', 'T2']) 
+            if len(df_mesure) > 0:
+                ax = axes[i] if n_mesures > 1 else axes  
+                pg.plot_blandaltman(df_mesure['T1'], df_mesure['T2'], ax=ax)
+                ax.set_title(f"{mesure}")
+            else:
+                print(f"No data for {mesure}: not included in plot.")
+
+    plt.tight_layout(rect=[0, 0, 1, 0.96])
+
+    return fig
+
+#--------------------------------------------[Go!]-------------------------------
+st.title("Dual-Task :green[Repro]")
 
 # Test orientation
 st.subheader("What are your tests orientation?")
@@ -129,7 +251,6 @@ with col2:
 
 cog_better_higher = cognitive_orientation == "Positive"
 mot_better_higher = motor_orientation == "Positive"
-
 
 # Data
 st.subheader("What is your data source?")
@@ -154,6 +275,7 @@ if data_method == "Manual Entry":
     }
     df = pd.DataFrame(data)
     df = st.data_editor(df)
+    st.caption('''T1 and T2 are the test values at time 1 and time 2 for the same evaluator (**intra-eval**), or for the evaluators 1 and evaluator 2 at the same time (**inter-eval**).''')
 
 # Import
 else:
@@ -164,7 +286,7 @@ else:
         st.dataframe(df)
     
     data_formating = '''
-    Please resect the data structure bellow. You can find data structure example [here](https://github.com/MatthieuGG/DualTaskCalculator/blob/main/samples/testDTP.csv).
+    Please resect the data structure bellow. You can find data structure example [here](https://github.com/MatthieuGG/DualTaskCalculator/blob/main/samples/testDTR.csv).
 
     | ID           | T1 - Cognitive performance - Single Task | T1 - Cognitive performance - Dual Task | T1 - Motor performance - Single Task | T1 - Motor performance - Dual Task | T2 - Cognitive performance - Single Task | T2 - Cognitive performance - Dual Task | T2 - Motor performance - Single Task | T2 - Motor performance - Dual Task |
     |--------------|------------------------------------------|----------------------------------------|--------------------------------------|------------------------------------|------------------------------------------|----------------------------------------|--------------------------------------|------------------------------------|
@@ -174,7 +296,7 @@ else:
     st.markdown(data_formating)
 
 # Calculation
-if st.button("Calculate Dual-Task Progress"):
+if st.button("Calculate Dual-Task Repro"):
     if df is not None:
         # DTE
         df = calculate_dual_task_effect(df, "Cognitive", cog_better_higher, "T1")
@@ -191,68 +313,66 @@ if st.button("Calculate Dual-Task Progress"):
 
         df["Dual Task Progress"] = df.apply(determine_progress_category, axis=1)
 
+        df_icc = transform_to_long_icc(df)
+
         # Results
         st.subheader("Results:")
+
         st.dataframe(df)
 
-        # Plot
-        fig, ax = plt.subplots()
-        colors = plt.cm.rainbow(np.linspace(0, 1, len(df['ID'].unique())))
-
-        for i, id_value in enumerate(df['ID'].unique()):
-            subset = df[df['ID'] == id_value]
-            x_start = subset['T1 - Cognitive Dual Task Effect'].values[0]
-            x_end = subset['T2 - Cognitive Dual Task Effect'].values[0]
-            y_start = subset['T1 - Motor Dual Task Effect'].values[0]
-            y_end = subset['T2 - Motor Dual Task Effect'].values[0]
-
-            ax.scatter(x_start, y_start, color=colors[i], label=id_value, alpha=0.6)
-            ax.scatter(x_end, y_end, color=colors[i], marker='X', alpha=0.6)
-
-            ax.quiver(x_start, y_start, x_end - x_start, y_end - y_start, angles='xy', scale_units='xy', scale=1, color=colors[i])
-
-        ax.axhline(0, color='black', linewidth=0.5)
-        ax.axvline(0, color='black', linewidth=0.5)
-
-        ax.set_title('Dual Task Progress (DTP)')
-        ax.set_xlabel('Cognitive Dual Task Effect (%)')
-        ax.set_ylabel('Motor Dual Task Effect (%)')
-
-        handles, labels = ax.get_legend_handles_labels()
-        by_label = dict(zip(labels, handles))
-        ax.legend(by_label.values(), by_label.keys(), loc='center left', bbox_to_anchor=(1, 0.5))
-
-        st.pyplot(fig)
+        ### agreement
+        agreement_rate = calculate_agreement_rate(df)
+        st.write("**Agreement between T1 and T2:**")
+        st.write(f"{agreement_rate}% of DTE similarity")
+        fig1 = plot_confusion_matrix(df)
+        st.pyplot(fig1)
         
-        # Print
-        for i, row in df.iterrows():
-            st.write(f"Participant {row['ID']}: went from {row['T1 - Dual Task Effect']} at T1, to {row['T2 - Dual Task Effect']} at T2, with a {row['Dual Task Progress']}")
+        # Download PNG
+        buffer = io.BytesIO()
+        fig1.savefig(buffer, format="png")
+        buffer.seek(0)
 
-        # Explanations
-        st.caption("The results are displayed as follow: 'Participant [ID]: went from [DTE category] at T1, to [DTE category] at T2, with a [DTP category]'")
+        st.download_button(
+            label="Download Confusion Matrix",
+            data=buffer,
+            file_name="confusion_matrix.png",
+            mime="image/png"
+        )
+
+        ### reliability
+        st.write("**Reliability between T1 and T2:**")
+
+        # csv
+        icc_results = calculate_cronbach_alpha_icc_with_metrics(df_icc)
+        st.dataframe(icc_results)
+        st.caption("How to interprete these scores: Cronbach's alpha [[1]](https://pubmed.ncbi.nlm.nih.gov/28029643/),[[2]](https://pingouin-stats.org/build/html/generated/pingouin.cronbach_alpha.html), Intraclass Correlation Coefficient [[3]](https://pubmed.ncbi.nlm.nih.gov/27330520/),[[4]](https://pingouin-stats.org/build/html/generated/pingouin.intraclass_corr.html), Standard Error of Measurment [[5]](https://www.fldoe.org/core/fileparse.php/7567/urlt/y1996-7.pdf), Coefficient of Variation [[4]](https://stats.oarc.ucla.edu/other/mult-pkg/faq/general/faq-what-is-the-coefficient-of-variation/#:~:text=The%20higher%20the%20CV%2C%20the,of%20a%20good%20model%20fit.).")
 
         # Download CSV
         @st.cache_data
         def convert_df(df):
             return df.to_csv(index=False).encode('utf-8')
 
-        csv = convert_df(df)
+        csv = convert_df(icc_results)
 
         st.download_button(
             label="Download results as CSV",
             data=csv,
-            file_name="results_DTP.csv",
+            file_name="results_DTR.csv",
             mime="text/csv"
         )
 
+        # plot
+        fig2 = create_bland_altman_plots(df_icc)
+        st.pyplot(fig2)
+
         # Download PNG
-        buffer = BytesIO()
-        fig.savefig(buffer, format="png")
+        buffer = io.BytesIO()
+        fig2.savefig(buffer, format="png")
         buffer.seek(0)
-        
+
         st.download_button(
-            label="Download Plot as PNG",
+            label="Download Bland-Altman",
             data=buffer,
-            file_name="plot_DTP.png",
+            file_name="bland_altman.png",
             mime="image/png"
         )
