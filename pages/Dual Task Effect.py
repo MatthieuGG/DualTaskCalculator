@@ -109,7 +109,7 @@ if st.button("Calculate Dual-Task Effect"):
     if df is not None:
         # DTE
         df = calculate_dual_task_effect(df, "Cognitive", cog_better_higher)
-        df = calculate_dual_task_effect(df, "Motor", motor_better_higher)
+        df = calculate_dual_task_effect(df, "Motor", mot_better_higher)
 
         df["Dual Task Effect"] = df.apply(determine_effect_category, axis=1)
 
