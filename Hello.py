@@ -25,6 +25,19 @@ st.markdown(
     """
 )
 
+# Say thanks
+recipient_email = "matthieu.gallou.guyot@gmail.com"
+subject = "Thanks for the DualTaskRepro!"
+body = "Dear Matthieu, (...)."
+mailto_link = f"mailto:{recipient_email}?subject={subject}&body={body}"
+
+st.sidebar.link_button(
+    label="Say Thanks",
+    url=mailto_link,
+    type="primary",
+    icon="💌"
+)
+
 # DTE
 st.divider()
 st.subheader("Dual-Task :blue[Effect]")
