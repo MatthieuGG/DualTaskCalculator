@@ -7,10 +7,27 @@ import pingouin as pg
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
 import numpy as np
+import os
+
+path_logo = os.path.join(os.path.dirname(__file__), "../images/logo.png")
 
 st.set_page_config(
     page_title="Dual-Task Repro",
     page_icon="📊",
+)
+#logo
+st.logo(path_logo, size="medium", link='https://en.wikipedia.org/wiki/Mens_sana_in_corpore_sano', icon_image=None)
+# Say thanks
+recipient_email = "matthieu.gallou.guyot@gmail.com"
+subject = "Thanks for the DualTaskRepro!"
+body = "Dear Matthieu, (...)."
+mailto_link = f"mailto:{recipient_email}?subject={subject}&body={body}"
+
+st.sidebar.link_button(
+    label="Say Thanks",
+    url=mailto_link,
+    type="primary",
+    icon="💌"
 )
 
 # Dual Task effect
