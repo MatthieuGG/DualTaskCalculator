@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 from io import BytesIO
 import os
 
+path_img_dte = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'images', 'DTE.jpg')
+path_results_dte = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..',  'samples', 'plot_DTE.png')
+
 path_logo = os.path.join(os.path.dirname(__file__), "../images/logo.png")
 
 st.set_page_config(
