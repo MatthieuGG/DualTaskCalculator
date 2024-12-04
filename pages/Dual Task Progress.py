@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 from io import BytesIO
 import os
 
+path_img_dtp = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..',  'images', 'DTP.png')
+path_results_dtp = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..',  'samples', 'plot_DTP.png')
+
 path_logo = os.path.join(os.path.dirname(__file__), "../images/logo.png")
 
 st.set_page_config(
@@ -155,7 +158,6 @@ with st.expander("Explanations 📈"):
     st.image(path_img_dtp, caption="Not yet published.", use_column_width=True)
     st.markdown(
         """
-        You can access the **Dual Task :orange[Progress]** calculator using the side bar, or clicking [this link](https://dualtaskcalculator.streamlit.app/~/+/Dual_Task_Progress). 
         Providing data manually or by upload, you will obtain downloadable: 1) dataframe with your results, 2) print with explanation for each participants, and 3) a global plot of this kind:  
         """
     )

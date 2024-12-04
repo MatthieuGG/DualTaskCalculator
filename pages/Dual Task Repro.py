@@ -9,6 +9,7 @@ import seaborn as sns
 import numpy as np
 import os
 
+path_img_dtr = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'images', 'DTR.png')
 path_logo = os.path.join(os.path.dirname(__file__), "../images/logo.png")
 
 st.set_page_config(
@@ -266,7 +267,6 @@ with st.expander("Explanations 📊"):
     )
     st.markdown(
         """
-        You can access the **Dual Task :green[Repro]** calculator using the side bar, or clicking [this link](https://dualtaskcalculator.streamlit.app/~/+/Dual_Task_Repro). 
         Providing data manually or by upload, you will obtain downloadable: 1) dataframe and explanation of your results, 2) confusion matrix and Bland-Altman plots of this kind:  
         """
     )

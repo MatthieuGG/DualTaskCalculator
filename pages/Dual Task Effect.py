@@ -92,7 +92,6 @@ with st.expander("Explanations 🧠💪"):
     st.image(path_img_dte, caption="Plummer et al. (2014). Stroke Research and Treatment.", width=50, use_column_width=True)
     st.markdown(
         """
-        You can access the **Dual Task :blue[Effect]** calculator using the side bar, or clicking [this link](https://dualtaskcalculator.streamlit.app/~/+/Dual_Task_Effect). 
         Providing data manually or by upload, you will obtain downlodable: 1) dataframe with your results, 2) print with explanation for each participants, and 3) a global plot of this kind:  
         """
     )
