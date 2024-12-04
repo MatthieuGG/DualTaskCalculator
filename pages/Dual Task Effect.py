@@ -26,6 +26,8 @@ st.sidebar.link_button(
     icon="💌"
 )
 
+######################### Computation
+
 # DTE
 def calculate_dual_task_effect(df, task_type, better_higher):
     single_task_col = f"{task_type} performance - Single Task"
@@ -64,8 +66,34 @@ def determine_effect_category(row):
         return 'No interference'
     return 'Unknown'
 
-
+######################### Page
 st.title("Dual-Task :blue[Effect]")
+
+# explanation
+with st.expander("Explanations 🧠💪"):
+    st.markdown(
+        """
+        The dual-task effect ($DTE$) is defined as the impact on the performance of realising a task in dual-task condition compared to single-task condition. It is calculated using the formula:
+        """
+    )
+    st.latex(r'''
+        \text{DTE} = \frac{\text{DT} - \text{ST}}{\text{ST}} \times 100
+    ''')
+    st.markdown(
+        """
+        With $DT$ = dual-task performance, and $ST$ = single-task performance. The cognitive ($DTE_{cog}$) and motor ($DTE_{mot}$) dual-task effect can be calculated.  
+
+        A graphical illustration as been proposed by Plumer et al., (2014) ([DOI: 10.1155/2014/538602](https://onlinelibrary.wiley.com/doi/10.1155/2014/538602)).
+        """
+    )
+    st.image(path_img_dte, caption="Plummer et al. (2014). Stroke Research and Treatment.", width=50, use_column_width=True)
+    st.markdown(
+        """
+        You can access the **Dual Task :blue[Effect]** calculator using the side bar, or clicking [this link](https://dualtaskcalculator.streamlit.app/~/+/Dual_Task_Effect). 
+        Providing data manually or by upload, you will obtain downlodable: 1) dataframe with your results, 2) print with explanation for each participants, and 3) a global plot of this kind:  
+        """
+    )
+    st.image(path_results_dte, caption=None, width=50, use_column_width=True)
 
 # Test orientation
 st.subheader("What are your tests orientation?")

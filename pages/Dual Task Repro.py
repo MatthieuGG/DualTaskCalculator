@@ -30,6 +30,8 @@ st.sidebar.link_button(
     icon="💌"
 )
 
+######################### Computation
+
 # Dual Task effect
 def calculate_dual_task_effect(df, task_type, better_higher, time_point):
     single_task_col = f"{time_point} - {task_type} performance - Single Task"
@@ -249,8 +251,26 @@ def create_bland_altman_plots(df):
 
     return fig
 
-#--------------------------------------------[Go!]-------------------------------
+######################### Page
 st.title("Dual-Task :green[Repro]")
+
+with st.expander("Explanations 📊"):
+    st.markdown(
+        """
+        The dual-task repro ($DTR$) is an automated process that calculates different scores to qualify the reliability of the measures (cognitive and motor, in single and dual task conditions) between two evaluators (*inter*) or two evaluations (*intra*):  
+        - Intraclass Correlation Coefficient (ICC)
+        - Cronbach's alpha
+        - Standard Error of Measurement (SEM)
+        - Coefficient of Variation (CV)
+        """
+    )
+    st.markdown(
+        """
+        You can access the **Dual Task :green[Repro]** calculator using the side bar, or clicking [this link](https://dualtaskcalculator.streamlit.app/~/+/Dual_Task_Repro). 
+        Providing data manually or by upload, you will obtain downloadable: 1) dataframe and explanation of your results, 2) confusion matrix and Bland-Altman plots of this kind:  
+        """
+    )
+    st.image(path_img_dtr, use_column_width=True)
 
 # Test orientation
 st.subheader("What are your tests orientation?")
