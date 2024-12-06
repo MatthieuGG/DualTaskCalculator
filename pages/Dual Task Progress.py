@@ -165,10 +165,11 @@ with st.expander("Explanations 📈"):
 
 # Test orientation
 st.subheader("What are your tests orientation?")
-orientation_score = '''**Positive**: higher score means higher performance (ex: distance run in 10 s).  
-**Negative**: lower score means higher performance (ex: time to run over 100 m).
-'''
-st.markdown(orientation_score)
+st.markdown('''
+            **Positive**: a higher score indicates better performance (e.g., distance covered in 10 seconds).  
+            **Negative**: a lower score indicates better performance (e.g., time taken to run 100 meters).
+            '''
+)
 
 col1, col2 = st.columns(2)
 with col1:
@@ -212,16 +213,17 @@ else:
         df = pd.read_csv(uploaded_file)
         st.write("Data Preview:")
         st.dataframe(df)
-    
-    data_formating = '''
-    Please resect the data structure bellow. You can find data structure example [here](https://github.com/MatthieuGG/DualTaskCalculator/blob/main/samples/testDTP.csv).
 
-    | ID           | T1 - Cognitive performance - Single Task | T1 - Cognitive performance - Dual Task | T1 - Motor performance - Single Task | T1 - Motor performance - Dual Task | T2 - Cognitive performance - Single Task | T2 - Cognitive performance - Dual Task | T2 - Motor performance - Single Task | T2 - Motor performance - Dual Task |
-    |--------------|------------------------------------------|----------------------------------------|--------------------------------------|------------------------------------|------------------------------------------|----------------------------------------|--------------------------------------|------------------------------------|
-    | Participant 1|                                          |                                        |                                      |                                    |                                          |                                        |                                      |                                    |
-    | ...          |                                          |                                        |                                      |                                    |                                          |                                        |                                      |                                    |
-    '''
-    st.markdown(data_formating)
+    with st.expander("Data formating"):    
+        st.markdown('''
+        Please respect the data structure bellow. You can find data structure example [here](https://github.com/MatthieuGG/DualTaskCalculator/blob/main/samples/testDTP.csv).
+
+        | ID           | T1 - Cognitive performance - Single Task | T1 - Cognitive performance - Dual Task | T1 - Motor performance - Single Task | T1 - Motor performance - Dual Task | T2 - Cognitive performance - Single Task | T2 - Cognitive performance - Dual Task | T2 - Motor performance - Single Task | T2 - Motor performance - Dual Task |
+        |--------------|------------------------------------------|----------------------------------------|--------------------------------------|------------------------------------|------------------------------------------|----------------------------------------|--------------------------------------|------------------------------------|
+        | Participant 1|                                          |                                        |                                      |                                    |                                          |                                        |                                      |                                    |
+        | ...          |                                          |                                        |                                      |                                    |                                          |                                        |                                      |                                    |
+        '''
+        )
 
 # Calculation
 if st.button("Calculate Dual-Task Progress"):
@@ -279,7 +281,7 @@ if st.button("Calculate Dual-Task Progress"):
             st.write(f"Participant {row['ID']}: went from {row['T1 - Dual Task Effect']} at T1, to {row['T2 - Dual Task Effect']} at T2, with a {row['Dual Task Progress']}")
 
         # Explanations
-        st.caption("The results are displayed as follow: 'Participant [ID]: went from [DTE category] at T1, to [DTE category] at T2, with a [DTP category]'")
+        st.caption("The results are displayed as follow: 'Participant [ID]: went from [DTE category] at T1, to [DTE category] at T2, with a [DTP cog/mot category]'")
 
         # Download CSV
         @st.cache_data
@@ -301,7 +303,7 @@ if st.button("Calculate Dual-Task Progress"):
         buffer.seek(0)
         
         st.download_button(
-            label="Download Plot as PNG",
+            label="Download plot as PNG",
             data=buffer,
             file_name="plot_DTP.png",
             mime="image/png"

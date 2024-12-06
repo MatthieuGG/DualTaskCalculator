@@ -99,10 +99,11 @@ with st.expander("Explanations 🧠💪"):
 
 # Test orientation
 st.subheader("What are your tests orientation?")
-orientation_score = '''**Positive**: higher score means higher performance (ex: distance run in 10 s).  
-**Negative**: lower score means higher performance (ex: time to run over 100 m).
-'''
-st.markdown(orientation_score)
+st.markdown('''
+            **Positive**: a higher score indicates better performance (e.g., distance covered in 10 seconds).  
+            **Negative**: a lower score indicates better performance (e.g., time taken to run 100 meters).
+            '''
+)
 
 col1, col2 = st.columns(2)
 with col1:
@@ -141,15 +142,16 @@ else:
         st.write("Data Preview:")
         st.dataframe(df)
     
-    data_formating = '''
-    Please respect the data structure bellow. You can find data structure example [here](https://github.com/MatthieuGG/DualTaskCalculator/blob/main/samples/testDTE.csv).  
+    with st.expander("Data formating"):
+        st.markdown('''
+        Please respect the data structure bellow. You can find data structure example [here](https://github.com/MatthieuGG/DualTaskCalculator/blob/main/samples/testDTE.csv).  
 
-    | ID           | Cognitive performance - Single Task | Cognitive performance - Dual Task | Motor performance - Single Task | Motor performance - Dual Task |
-    |--------------|-------------------------------------|-----------------------------------|---------------------------------|-------------------------------|
-    | Participant 1|                                     |                                   |                                 |                               |
-    | ...          |                                     |                                   |                                 |                               |
-    '''
-    st.markdown(data_formating)
+        | ID           | Cognitive performance - Single Task | Cognitive performance - Dual Task | Motor performance - Single Task | Motor performance - Dual Task |
+        |--------------|-------------------------------------|-----------------------------------|---------------------------------|-------------------------------|
+        | Participant 1|                                     |                                   |                                 |                               |
+        | ...          |                                     |                                   |                                 |                               |
+        '''
+        )
 
 # Calculation
 if st.button("Calculate Dual-Task Effect"):
@@ -206,7 +208,7 @@ if st.button("Calculate Dual-Task Effect"):
         buffer.seek(0)
         
         st.download_button(
-            label="Download Plot as PNG",
+            label="Download plot as PNG",
             data=buffer,
             file_name="plot_DTE.png",
             mime="image/png"

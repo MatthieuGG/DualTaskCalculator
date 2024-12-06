@@ -274,10 +274,11 @@ with st.expander("Explanations 📊"):
 
 # Test orientation
 st.subheader("What are your tests orientation?")
-orientation_score = '''**Positive**: higher score means higher performance (ex: distance run in 10 s).  
-**Negative**: lower score means higher performance (ex: time to run over 100 m).
-'''
-st.markdown(orientation_score)
+st.markdown('''
+            **Positive**: a higher score indicates better performance (e.g., distance covered in 10 seconds).  
+            **Negative**: a lower score indicates better performance (e.g., time taken to run 100 meters).
+            '''
+)
 
 col1, col2 = st.columns(2)
 with col1:
@@ -321,16 +322,18 @@ else:
         df = pd.read_csv(uploaded_file)
         st.write("Data Preview:")
         st.dataframe(df)
-    
-    data_formating = '''
-    Please resect the data structure bellow. You can find data structure example [here](https://github.com/MatthieuGG/DualTaskCalculator/blob/main/samples/testDTR.csv).
 
-    | ID           | T1 - Cognitive performance - Single Task | T1 - Cognitive performance - Dual Task | T1 - Motor performance - Single Task | T1 - Motor performance - Dual Task | T2 - Cognitive performance - Single Task | T2 - Cognitive performance - Dual Task | T2 - Motor performance - Single Task | T2 - Motor performance - Dual Task |
-    |--------------|------------------------------------------|----------------------------------------|--------------------------------------|------------------------------------|------------------------------------------|----------------------------------------|--------------------------------------|------------------------------------|
-    | Participant 1|                                          |                                        |                                      |                                    |                                          |                                        |                                      |                                    |
-    | ...          |                                          |                                        |                                      |                                    |                                          |                                        |                                      |                                    |
-    '''
-    st.markdown(data_formating)
+    
+    with st.expander("Data formating"):    
+        st.markdown('''
+        Please resect the data structure bellow. You can find data structure example [here](https://github.com/MatthieuGG/DualTaskCalculator/blob/main/samples/testDTR.csv).
+
+        | ID           | T1 - Cognitive performance - Single Task | T1 - Cognitive performance - Dual Task | T1 - Motor performance - Single Task | T1 - Motor performance - Dual Task | T2 - Cognitive performance - Single Task | T2 - Cognitive performance - Dual Task | T2 - Motor performance - Single Task | T2 - Motor performance - Dual Task |
+        |--------------|------------------------------------------|----------------------------------------|--------------------------------------|------------------------------------|------------------------------------------|----------------------------------------|--------------------------------------|------------------------------------|
+        | Participant 1|                                          |                                        |                                      |                                    |                                          |                                        |                                      |                                    |
+        | ...          |                                          |                                        |                                      |                                    |                                          |                                        |                                      |                                    |
+        '''
+        )
 
 # Calculation
 if st.button("Calculate Dual-Task Repro"):
@@ -370,7 +373,7 @@ if st.button("Calculate Dual-Task Repro"):
         buffer.seek(0)
 
         st.download_button(
-            label="Download Confusion Matrix",
+            label="Download confusion matrix as PNG",
             data=buffer,
             file_name="confusion_matrix.png",
             mime="image/png"
@@ -408,7 +411,7 @@ if st.button("Calculate Dual-Task Repro"):
         buffer.seek(0)
 
         st.download_button(
-            label="Download Bland-Altman",
+            label="Download Bland-Altman plot as PNG",
             data=buffer,
             file_name="bland_altman.png",
             mime="image/png"
