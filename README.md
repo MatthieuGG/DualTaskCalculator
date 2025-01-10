@@ -1,7 +1,7 @@
 # Dual Task Calculator
 
 ```
-https://dualtaskcalculator.streamlit.app/~/+/
+https://dualtaskcalculator.streamlit.app/
 ```
 
 Automatically calculates the cognitive-motor dual-task effects (DTE) or progress (DTP) from the cognitive and motor performances of subjects at two times (T1 and T2), both realised in single and dual task condition (ST and DT). Can also provide information about the realibility of the measure. 
