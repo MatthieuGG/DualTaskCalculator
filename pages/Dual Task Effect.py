@@ -89,13 +89,13 @@ with st.expander("Explanations 🧠💪"):
         A graphical illustration as been proposed by Plumer et al., (2014) ([DOI: 10.1155/2014/538602](https://onlinelibrary.wiley.com/doi/10.1155/2014/538602)).
         """
     )
-    st.image(path_img_dte, caption="Plummer et al. (2014). Stroke Research and Treatment.", width=50, use_column_width=True)
+    st.image(path_img_dte, caption="Plummer et al. (2014). Stroke Research and Treatment.", width=50, use_container_width=True)
     st.markdown(
         """
         Providing data manually or by upload, you will obtain downlodable: 1) dataframe with your results, 2) print with explanation for each participants, and 3) a global plot of this kind:  
         """
     )
-    st.image(path_results_dte, caption=None, width=50, use_column_width=True)
+    st.image(path_results_dte, caption=None, width=50, use_container_width=True)
 
 # Test orientation
 st.subheader("What are your tests orientation?")

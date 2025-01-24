@@ -270,7 +270,7 @@ with st.expander("Explanations 📊"):
         Providing data manually or by upload, you will obtain downloadable: 1) dataframe and explanation of your results, 2) confusion matrix and Bland-Altman plots of this kind:  
         """
     )
-    st.image(path_img_dtr, use_column_width=True)
+    st.image(path_img_dtr, use_container_width=True)
 
 # Test orientation
 st.subheader("What are your tests orientation?")

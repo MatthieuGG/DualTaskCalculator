@@ -60,14 +60,14 @@ with st.expander("Explanations 🧠💪"):
         A graphical illustration as been proposed by Plumer et al., (2014) ([DOI: 10.1155/2014/538602](https://onlinelibrary.wiley.com/doi/10.1155/2014/538602)).
         """
     )
-    st.image(path_img_dte, caption="Plummer et al. (2014). Stroke Research and Treatment.", width=50, use_column_width=True)
+    st.image(path_img_dte, caption="Plummer et al. (2014). Stroke Research and Treatment.", width=50, use_container_width=True)
     st.markdown(
         """
         You can access the **Dual Task :blue[Effect]** calculator using the side bar, or clicking [this link](https://dualtaskcalculator.streamlit.app/~/+/Dual_Task_Effect). 
         Providing data manually or by upload, you will obtain downlodable: 1) dataframe with your results, 2) print with explanation for each participants, and 3) a global plot of this kind:  
         """
     )
-    st.image(path_results_dte, caption=None, width=50, use_column_width=True)
+    st.image(path_results_dte, caption=None, width=50, use_container_width=True)
 
 # DTP
 st.subheader("Dual-Task :orange[Progress]")
@@ -90,14 +90,14 @@ with st.expander("Explanations 📈"):
         A graphical illustration as been proposed by (...)) ([DOI: (...)]()).
         """
     )
-    st.image(path_img_dtp, caption="Not yet published.", use_column_width=True)
+    st.image(path_img_dtp, caption="Not yet published.", use_container_width=True)
     st.markdown(
         """
         You can access the **Dual Task :orange[Progress]** calculator using the side bar, or clicking [this link](https://dualtaskcalculator.streamlit.app/~/+/Dual_Task_Progress). 
         Providing data manually or by upload, you will obtain downloadable: 1) dataframe with your results, 2) print with explanation for each participants, and 3) a global plot of this kind:  
         """
     )
-    st.image(path_results_dtp, caption=None, width=50, use_column_width=True)
+    st.image(path_results_dtp, caption=None, width=50, use_container_width=True)
 
 # DTR
 st.subheader("Dual-Task :green[Repro]")
@@ -117,7 +117,7 @@ with st.expander("Explanations 📊"):
         Providing data manually or by upload, you will obtain downloadable: 1) dataframe and explanation of your results, 2) confusion matrix and Bland-Altman plots of this kind:  
         """
     )
-    st.image(path_img_dtr, use_column_width=True)
+    st.image(path_img_dtr, use_container_width=True)
 
 # Footer
 st.subheader("Feedback & Use", divider="gray")
