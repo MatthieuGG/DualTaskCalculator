@@ -155,7 +155,7 @@ with st.expander("Explanations 📈"):
         A graphical illustration as been proposed by Gallou-Guyot et al, 2025 ([DOI: 10.52057/erj.v5i1.58](https://rehab-journal.com/index.php/home/article/view/58)). 
         """
     )
-    st.image(path_img_dtp, caption="Not yet published.", use_container_width=True)
+    st.image(path_img_dtp, caption="Gallou-Guyot et al. (2025). European Rehabilitation Journal.", use_container_width=True)
     st.markdown(
         """
         Providing data manually or by upload, you will obtain downloadable: 1) dataframe with your results, 2) print with explanation for each participants, and 3) a global plot of this kind:  

@@ -90,7 +90,7 @@ with st.expander("Explanations 📈"):
         A graphical illustration as been proposed by Gallou-Guyot et al, 2025 ([DOI: 10.52057/erj.v5i1.58](https://rehab-journal.com/index.php/home/article/view/58)). 
         """
     )
-    st.image(path_img_dtp, caption="Not yet published.", use_container_width=True)
+    st.image(path_img_dtp, caption="Gallou-Guyot et al. (2025). European Rehabilitation Journal.", use_container_width=True)
     st.markdown(
         """
         You can access the **Dual Task :orange[Progress]** calculator using the side bar, or clicking [this link](https://dualtaskcalculator.streamlit.app/~/+/Dual_Task_Progress). 
