@@ -152,7 +152,7 @@ with st.expander("Explanations 📈"):
         """
         With $DTE_{2}$ = dual-task effect at T2, and $DTE_{1}$ = dual-task effect at T1. The cognitive ($DTP_{cog}$) and motor ($DTP_{mot}$) dual-task progress can be calculated.  
 
-        A graphical illustration as been proposed by (...)) ([DOI: (...)]()).
+        A graphical illustration as been proposed by Gallou-Guyot et al, 2025 ([DOI: 10.52057/erj.v5i1.58](https://rehab-journal.com/index.php/home/article/view/58)). 
         """
     )
     st.image(path_img_dtp, caption="Not yet published.", use_container_width=True)
