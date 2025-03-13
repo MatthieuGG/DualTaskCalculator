@@ -52,7 +52,7 @@ You can download the results as CSV and PNG files.
 </details>
 
 ---
-This code is provided allong with more detailed informations in this article: [Gallou-Guyot et al., 2024](). The data has been acquired within the [INCOME research project](https://matthieugg.github.io/income.html).  To cite this work:  
+This code is provided allong with more detailed informations in this article: [Gallou-Guyot et al., 2025](https://rehab-journal.com/index.php/home/article/view/58). The data has been acquired within the [INCOME research project](https://matthieugg.github.io/income.html).  To cite this work:  
 > Gallou-Guyot, M., Bruyneel, A.-V., Mandigout, S., & Perrochon, A. (2025). Using dual-task effect for cognitive-motor change profiling – the Dual-Task Progress model. *European Rehabilitation Journal*, 5(1). [https://doi.org/10.52057/erj.v5i1.58](https://rehab-journal.com/index.php/home/article/view/58)
 
 ![Dual Task Progress](https://github.com/MatthieuGG/DualTaskCalculator/blob/main/images/DTP.png?raw=true)
